@@ -1,5 +1,6 @@
 import { React, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import GoogleAuth from '../Components/GoogleAuth'
 
 const Signup = () => {
     const [formData, setFormData] = useState({})
@@ -47,35 +48,36 @@ const Signup = () => {
     }
 
     return (
-        <div className='bg-slate-800 mt-16 p-7 rounded-lg max-w-lg mx-auto text-white'>
+        <div className='bg-slate-800 mt-16 p-5 rounded-lg max-w-lg mx-auto text-white'>
             <h1 className='text-3xl text-center font-semibold my-10'>Sign-up</h1>
             <form onSubmit={handleSubmit} className='flex flex-col gap-4 ' >
                 <input 
                     type="text" 
                     placeholder='Username' 
-                    className='bg-slate-700 text-white placeholder-gray-400 p-3 rounded-lg' 
+                    className='bg-slate-700 text-white placeholder-gray-400 p-2 rounded-lg' 
                     id='username' 
                     onChange={handleChange} 
                 />
                 <input 
                     type="text" 
                     placeholder='Email' 
-                    className='bg-slate-700 text-white placeholder-gray-400 p-3 rounded-lg' 
+                    className='bg-slate-700 text-white placeholder-gray-400 p-2 rounded-lg' 
                     id='email' 
                     onChange={handleChange} 
                 />
                 <input 
                     type="password" 
                     placeholder='Password' 
-                    className='bg-slate-700 text-white placeholder-gray-400 p-3 rounded-lg' 
+                    className='bg-slate-700 text-white placeholder-gray-400 p-2 rounded-lg' 
                     id='password' 
                     onChange={handleChange} 
                 />
-                <button disabled= {loading} className='bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition-colors'>
+                <button disabled= {loading} className='bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors'>
                     {loading ? 'Loading...':'sign up'}
                 </button>
+                <GoogleAuth/>
             </form>
-            <div className='flex gap-3 justify-end p-3'>
+            <div className='flex gap-3 justify-end p-2'>
                 <p>Already a user?</p>
                 <Link to={"/login"}>
                     <span className='text-blue-400 hover:text-blue-600 transition-colors'>Login</span>
