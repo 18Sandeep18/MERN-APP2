@@ -1,9 +1,13 @@
 import User from "../models/user.model.js";
 import bcryptjs from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import { errorHandler } from "../utils/error.js";
 
 export const signup = async (req, res, next) => {
     const { username, email, password } = req.body
+    const invalidUser = await User.findOne({email})
+    if(invalidUser)return next(errorHandler(400,"*Email already exists"))
+
     const hashedPassword = bcryptjs.hashSync(password, 10)
     const newUser = new User({ username, email, password: hashedPassword })
     try {
@@ -22,10 +26,10 @@ export const login = async (req,res,next)=>{
     try{
 
         const validUser = await User.findOne({email})
-        if(!validUser)return res.status(401).json({"mssg":"User not found"})
+        if(!validUser)return next(errorHandler(400,'*User Not Found'))
             const match = bcryptjs.compareSync(password,validUser.password);
         if(!match){
-            return res.status(401).json({"mssg":"Wrong password"})
+            return next(errorHandler(401,'*Wrong Credentials'))
         }
         
         const token = jwt.sign({id:validUser._id},process.env.SECRET)
