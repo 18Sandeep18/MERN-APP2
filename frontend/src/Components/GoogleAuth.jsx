@@ -19,13 +19,14 @@ const GoogleAuth = () => {
                 headers:{
                     'Content-Type':'application/json',
                 },
-                body:JSON.stringify({name:result.user.displayName,email:result.user.email})
+                body:JSON.stringify({username:result.user.displayName,email:result.user.email})
                 
 
             })
             const data = await res.json()
+                
             dispatch(signInSuccess(data))
-            navigate('/ ')
+            navigate('/')
         }catch(err){
             console.log(err)
         }
