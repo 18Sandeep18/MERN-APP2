@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { signInStart,signInSuccess,signInFailure } from '../redux/user/userSlice'
 import GoogleAuth from '../Components/GoogleAuth'
+import { updateCurrentUser } from 'firebase/auth'
 
 const Signup = () => {
     const [formData, setFormData] = useState({})
@@ -52,7 +53,7 @@ const Signup = () => {
     }
 
     return (
-        <div className='bg-slate-800 mt-16 p-5 rounded-lg max-w-lg mx-auto text-white'>
+        <div className='bg-slate-800 mt-16 p-5 rounded-lg max-w-sm mx-auto text-white'>
             <h1 className='text-3xl text-center font-semibold my-10'>Login-in</h1>
             <form onSubmit={handleSubmit} className='flex flex-col gap-4 ' >
                 
