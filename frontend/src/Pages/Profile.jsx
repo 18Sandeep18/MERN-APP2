@@ -1,7 +1,7 @@
 import {React,useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import { updateUserstart,updateUserSucess,updateUserFailure,deleteUserFailure,deleteUserStart,deleteUserSuccess } from '../redux/user/userSlice.js'
-import { FaTrophy } from 'react-icons/fa'
+import { updateUserstart,updateUserSucess,updateUserFailure,deleteUserFailure,deleteUserStart,deleteUserSuccess ,logoutUserStart,logoutUserFailure,logoutUserSuccess} from '../redux/user/userSlice.js'
+
 const Profile = () => {
     const {currentUser} = useSelector(state=>state.user)
     const [formData,setFormData] = useState({})
@@ -17,7 +17,7 @@ const Profile = () => {
         e.preventDefault()
         try{
             dispatch(updateUserstart())
-            const res = await fetch(`api/user/update/${currentUser._id}`,{
+            const res = await fetch(`/api/user/update/${currentUser._id}`,{
                 method:'POST',
                 headers:{
                     'Content-Type':'Application/json'
@@ -50,6 +50,20 @@ const Profile = () => {
                 }
                 dispatch(deleteUserSuccess(data))
 
+        }catch(err){
+            dispatch(deleteUserFailure(err.message))
+        }
+    }
+    const handleLogout = async()=>{
+        try{
+            dispatch(logoutUserStart())
+            const res = await fetch('/api/auth/logout')
+            const data = res.json()
+            if(data.success === false){
+                dispatch(deleteUserFailure(data.msg))
+                return; 
+            }
+            dispatch(deleteUserSuccess(data))
         }catch(err){
             dispatch(deleteUserFailure(err.message))
         }
@@ -91,7 +105,7 @@ const Profile = () => {
                 <span onClick = {handleDeleteUser}className='text-red-500 cursor-pointer hover:text-red-700 transition-colors'>
                     Delete account
                 </span>
-                <span className='text-blue-400 cursor-pointer hover:text-blue-600 transition-colors'>
+                <span onClick={handleLogout} className='text-blue-400 cursor-pointer hover:text-blue-600 transition-colors'>
                     Logout
                 </span>
             </div>

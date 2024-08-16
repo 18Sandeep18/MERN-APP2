@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { deleteUserFailure,deleteUserStart,deleteUserSuccess ,logoutUserStart,logoutUserFailure,logoutUserSuccess} from '../redux/user/userSlice.js'
 
 const Header = () => {
     const { currentUser } = useSelector(state => state.user)
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+    const dispatch = useDispatch()
     const dropdownRef = useRef(null) // Create a reference for the dropdown
 
     // Toggle the dropdown when the username is clicked
@@ -19,6 +21,22 @@ const Header = () => {
             setIsDropdownOpen(false)
         }
     }
+
+    const handleLogout = async()=>{
+        try{
+            dispatch(logoutUserStart())
+            const res = await fetch('/api/auth/logout')
+            const data = res.json()
+            if(data.success === false){
+                dispatch(deleteUserFailure(data.msg))
+                return; 
+            }
+            dispatch(deleteUserSuccess(data))
+        }catch(err){
+            dispatch(deleteUserFailure(err.message))
+        }
+    }
+    
 
     useEffect(() => {
         if (isDropdownOpen) {
@@ -79,7 +97,8 @@ const Header = () => {
                                     Profile
                                 </Link>
                                 <Link
-                                    to='/logout'
+                                    to='/login'
+                                    onClick={handleLogout}
                                     className='block bg-slate-700 rounded-lg text-white placeholder-gray-400 p-3 my-1 hover:bg-slate-600 transition-colors'
                                 >
                                     Logout
