@@ -6,12 +6,12 @@ import authRouter from './routes/auth.route.js'
 import cookieParser from 'cookie-parser'
 dotenv.config()
 const app = express();
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 8080
 
 mongoose.connect(process.env.MONG_URI)
     .then(() => {
-        app.listen(process.env.PORT, () => {
-            console.log(`Connected to Db,server is listening to port ${process.env.PORT}`)
+        app.listen(PORT, () => {
+            console.log(`Connected to Db,server is listening to port ${PORT}`)
         })
     })
     .catch((err) => {
