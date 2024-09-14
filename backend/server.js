@@ -10,7 +10,7 @@ dotenv.config()
 const app = express();
 const PORT = process.env.PORT 
 
-const allowedOrigins = ['https://mern-app-2-zdzp.vercel.app/'];
+const allowedOrigins = ['https://mern-app-2.vercel.app/'];
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
