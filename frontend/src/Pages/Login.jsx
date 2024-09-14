@@ -24,7 +24,7 @@ const Signup = () => {
         dispatch(signInStart())
         try{
 
-            const res = await fetch('/api/auth/login',
+            const res = await fetch('https://mern-app2-w0yi.onrender.com/api/auth/login',
                 {
                     method: 'POST',
                     headers: {

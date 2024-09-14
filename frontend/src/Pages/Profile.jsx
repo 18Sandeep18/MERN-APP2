@@ -17,7 +17,7 @@ const Profile = () => {
         e.preventDefault()
         try{
             dispatch(updateUserstart())
-            const res = await fetch(`/api/user/update/${currentUser._id}`,{
+            const res = await fetch(`https://mern-app2-w0yi.onrender.com/api/user/update/${currentUser._id}`,{
                 method:'POST',
                 headers:{
                     'Content-Type':'Application/json'

@@ -1,12 +1,25 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
+
+const cors = require('cors');
 import userRouter from './routes/user.route.js'
 import authRouter from './routes/auth.route.js'
 import cookieParser from 'cookie-parser'
 dotenv.config()
 const app = express();
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT 
+
+const allowedOrigins = ['https://mern-app-2-zdzp.vercel.app/'];
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
 
 mongoose.connect(process.env.MONG_URI)
     .then(() => {
