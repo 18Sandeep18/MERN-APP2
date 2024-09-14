@@ -1,5 +1,6 @@
 {
   "name": "frontend",
+  "proxy": "https://mern-app2-w0yi.onrender.com",
   "private": true,
   "version": "0.0.0",
   "type": "module",
