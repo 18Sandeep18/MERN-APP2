@@ -25,7 +25,7 @@ const Header = () => {
     const handleLogout = async()=>{
         try{
             dispatch(logoutUserStart())
-            const res = await fetch('/api/auth/logout')
+            const res = await fetch('https://mern-app2-w0yi.onrender.com/api/auth/logout')
             const data = res.json()
             if(data.success === false){
                 dispatch(deleteUserFailure(data.msg))
